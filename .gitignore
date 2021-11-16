@@ -1,0 +1,22 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Zeppelin ignored files
+/ZeppelinRemoteNotebooks/
+# Editor-based HTTP Client requests
+/httpRequests/
+/.idea/
+/target/*
+*.iml
+*.xml
+!pom.xml
+!log4j2.xml
+!log4j2-dev.xml
+/logs/
+!src/main/resources/db/changelog/**
+!mail-acc/**
+!kafka-docker/**
+!httpRequest/**
