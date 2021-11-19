@@ -5,7 +5,6 @@ services:
         image: confluentinc/cp-zookeeper:6.2.1
         hostname: zookeeper
         container_name: zookeeper
-        restart: on-failure
         ports:
             - "2181:2181"
         environment:
@@ -24,8 +23,8 @@ services:
         environment:
             KAFKA_BROKER_ID: 1
             KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT, PLAINTEXT_HOST:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092, PLAINTEXT_HOST://localhost:9092
             KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
             KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -36,7 +35,7 @@ services:
             KAFKA_JMX_PORT: 9101
             KAFKA_JMX_HOSTNAME: localhost
             KAFKA_CONFLUENT_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-            CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
+            CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:9092, kafka:29092
             CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
             CONFLUENT_METRICS_ENABLE: 'true'
             CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
@@ -45,6 +44,9 @@ services:
         image: debezium/example-mysql:1.8
         hostname: mysql
         container_name: mysql
+        restart: on-failure
+        volumes:
+            - mysql: /var/mysql/data
         ports:
             - "3306:3306"
         environment:
@@ -63,8 +65,9 @@ services:
         ports:
             - "8083:8083"
         environment:
-            BOOTSTRAP_SERVERS: kafka:9092
+            BOOTSTRAP_SERVERS: kafka:29092
             GROUP_ID: 2
-            CONFIG_STORAGE_TOPIC: my-connect-configs
-            OFFSET_STORAGE_TOPIC: my-connect-offsets
-            STATUS_STORAGE_TOPIC: my-connect-statuses
+            CONFIG_STORAGE_TOPIC: my_connect_configs
+            OFFSET_STORAGE_TOPIC: my_connect_offsets
+            STATUS_STORAGE_TOPIC: my_connect_statuses
+            HEAP_OPTS: -Xms256M -Xmx3G
