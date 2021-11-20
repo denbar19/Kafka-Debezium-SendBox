@@ -1,5 +1,9 @@
 version: '3.9'
 
+volumes:
+    mysql-debeziumMySqlSendbox:
+        external: true
+
 services:
     zookeeper:
         image: confluentinc/cp-zookeeper:6.2.1
@@ -41,12 +45,12 @@ services:
             CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
     mysql:
-        image: debezium/example-mysql:1.8
+        image: mysql
         hostname: mysql
         container_name: mysql
-        restart: on-failure
+        restart: always
         volumes:
-            - mysql: /var/mysql/data
+            - debeziumMySqlSendbox-sendbox: /var/mysql/data
         ports:
             - "3306:3306"
         environment:
