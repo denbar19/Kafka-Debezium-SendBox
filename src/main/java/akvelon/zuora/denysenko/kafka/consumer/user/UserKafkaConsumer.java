@@ -1,7 +1,9 @@
-package akvelon.denysenko.kafka.consumer.user;
+package akvelon.zuora.denysenko.kafka.consumer.user;
 
-import akvelon.denysenko.handler.EventHandler;
-import akvelon.denysenko.kafka.event.user.*;
+import akvelon.zuora.denysenko.handler.EventHandler;
+import akvelon.zuora.denysenko.kafka.event.user.UserCreatedKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.user.UserDeletedKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.user.UserUpdatedKafkaEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

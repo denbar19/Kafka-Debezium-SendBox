@@ -1,14 +1,12 @@
-package akvelon.denysenko.kafka.event.task;
+package akvelon.zuora.denysenko.kafka.event.task;
 
-import akvelon.denysenko.entity.persistence.Comment;
-import akvelon.denysenko.entity.api.TaskApi;
-import akvelon.denysenko.entity.service.CommentServiceApi;
-import akvelon.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.entity.api.TaskApi;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.entity.api.TaskApi;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import lombok.*;
 
-import java.util.Set;
-
-import static akvelon.denysenko.entity.EntityAction.TASK_REJECTED;
+import static akvelon.zuora.denysenko.entity.EntityAction.TASK_REJECTED;
 
 
 /**
@@ -22,12 +20,10 @@ import static akvelon.denysenko.entity.EntityAction.TASK_REJECTED;
 public class TaskRejectedKafkaEvent extends AbstractKafkaEvent {
 
     private TaskApi task;
-    private Set<CommentServiceApi> comments;
 
-    public TaskRejectedKafkaEvent(TaskApi task, final Set<CommentServiceApi> comments) {
+    public TaskRejectedKafkaEvent(TaskApi task) {
         super(TASK_REJECTED);
         this.task = task;
-        this.comments = comments;
     }
 
 }

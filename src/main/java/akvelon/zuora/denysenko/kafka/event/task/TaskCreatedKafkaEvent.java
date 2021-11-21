@@ -1,10 +1,10 @@
-package akvelon.denysenko.kafka.event.task;
+package akvelon.zuora.denysenko.kafka.event.task;
 
-import akvelon.denysenko.entity.api.TaskApi;
-import akvelon.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.entity.api.TaskApi;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import lombok.*;
 
-import static akvelon.denysenko.entity.EntityAction.TASK_CREATED;
+import static akvelon.zuora.denysenko.entity.EntityAction.TASK_CREATED;
 
 /**
  * @author Denysenko Stanislav

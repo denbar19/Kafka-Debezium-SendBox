@@ -1,6 +1,6 @@
-package akvelon.denysenko.kafka.serialization;
+package akvelon.zuora.denysenko.kafka.serialization;
 
-import akvelon.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

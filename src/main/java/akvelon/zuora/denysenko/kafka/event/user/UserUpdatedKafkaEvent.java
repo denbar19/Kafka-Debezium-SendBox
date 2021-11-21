@@ -1,10 +1,10 @@
-package akvelon.denysenko.kafka.event.user;
+package akvelon.zuora.denysenko.kafka.event.user;
 
-import akvelon.denysenko.entity.api.UserApi;
-import akvelon.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.entity.api.UserApi;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import lombok.*;
 
-import static akvelon.denysenko.entity.EntityAction.USER_UPDATED;
+import static akvelon.zuora.denysenko.entity.EntityAction.USER_UPDATED;
 
 /**
  * @author Denysenko Stanislav

@@ -1,6 +1,6 @@
 package akvelon.zuora.denysenko.kafka.config;
 
-import akvelon.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;

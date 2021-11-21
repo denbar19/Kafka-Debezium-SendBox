@@ -1,16 +1,15 @@
-package akvelon.denysenko.kafka.producer.user;
+package akvelon.zuora.denysenko.kafka.producer.user;
 
-import akvelon.denysenko.entity.api.UserApi;
-import akvelon.denysenko.kafka.event.AbstractKafkaEvent;
-import akvelon.denysenko.kafka.event.user.*;
+import akvelon.zuora.denysenko.entity.api.UserApi;
+import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.user.UserCreatedKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.user.UserDeletedKafkaEvent;
+import akvelon.zuora.denysenko.kafka.event.user.UserUpdatedKafkaEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import static java.lang.String.format;
-import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * @author Denysenko Stanislav
