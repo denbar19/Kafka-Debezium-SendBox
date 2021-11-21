@@ -1,7 +1,7 @@
 version: '3.9'
 
 volumes:
-    mysql-debeziumMySqlSendbox:
+    debeziumMySqlSendbox:
         external: true
 
 services:
@@ -50,7 +50,7 @@ services:
         container_name: mysql
         restart: always
         volumes:
-            - debeziumMySqlSendbox-sendbox: /var/mysql/data
+            - debeziumMySqlSendbox:/var/mysql/data
         ports:
             - "3306:3306"
         environment:
