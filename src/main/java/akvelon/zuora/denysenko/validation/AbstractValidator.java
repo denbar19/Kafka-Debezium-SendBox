@@ -10,12 +10,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AbstractValidator<T> {
 
-    private final Class<T> clazz;
-
     public T isNull(T t) {
         if (Objects.isNull(t)) {
-            log.warn(clazz + " object is null");
-            throw new ValidationExceptionImpl(clazz + " object is null");
+            throw new ValidationExceptionImpl("Object is null");
         }
         return (T)t;
     }

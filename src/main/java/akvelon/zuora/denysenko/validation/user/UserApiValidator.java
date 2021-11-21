@@ -1,10 +1,13 @@
 package akvelon.zuora.denysenko.validation.user;
 
-public class UserApiValidator<UserApi> extends AbstractUserValidator<UserApi>{
+import akvelon.zuora.denysenko.entity.api.UserApi;
+import akvelon.zuora.denysenko.validation.AbstractValidator;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
-    public UserApiValidator(Class<UserApi> clazz) {
-        super(clazz);
-    }
+@Service
+@NoArgsConstructor
+public class UserApiValidator extends AbstractValidator<UserApi> {
 
     @Override
     public UserApi isNull(UserApi userApi) {

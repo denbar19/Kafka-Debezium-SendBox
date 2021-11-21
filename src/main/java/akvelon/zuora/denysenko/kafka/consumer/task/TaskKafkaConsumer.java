@@ -3,7 +3,6 @@ package akvelon.zuora.denysenko.kafka.consumer.task;
 import akvelon.zuora.denysenko.handler.EventHandler;
 import akvelon.zuora.denysenko.kafka.event.task.TaskCreatedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskDeletedKafkaEvent;
-import akvelon.zuora.denysenko.kafka.event.task.TaskRejectedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskUpdatedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.user.UserAssignedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.user.UserSubscribedKafkaEvent;
@@ -52,12 +51,6 @@ public class TaskKafkaConsumer {
     @KafkaHandler
     public void deleteTaskListener(@Payload final TaskDeletedKafkaEvent task) {
         log.debug("Kafka deleteTaskListener: topic: " + jsonTopic + " , groupId: planningsystem. Caught message: " + task);
-        eventHandler.processEvent(task);
-    }
-
-    @KafkaHandler
-    public void rejectedTaskListener(@Payload final TaskRejectedKafkaEvent task) {
-        log.debug("Kafka rejectTaskListener: topic: " + jsonTopic + " , groupId: planningsystem. Caught message: " + task);
         eventHandler.processEvent(task);
     }
 

@@ -5,7 +5,6 @@ import akvelon.zuora.denysenko.entity.api.UserApi;
 import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskCreatedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskDeletedKafkaEvent;
-import akvelon.zuora.denysenko.kafka.event.task.TaskRejectedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskUpdatedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.user.UserAssignedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.user.UserSubscribedKafkaEvent;
@@ -16,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 /**
  * @author Denysenko Stanislav
@@ -50,12 +47,6 @@ public class TaskKafkaProducer {
         TaskDeletedKafkaEvent taskDeletedKafkaEvent = new TaskDeletedKafkaEvent(taskApi);
         kafkaTemplate.send(jsonTopic, taskDeletedKafkaEvent);
         log.debug("sendDeleteTaskKafkaEvent, kafka sent deleteTaskKafkaEvent message: {}", taskDeletedKafkaEvent);
-    }
-
-    public void sendRejectedTaskKafkaEvent(TaskApi taskApi) {
-        TaskRejectedKafkaEvent taskRejectKafkaEvent = new TaskRejectedKafkaEvent(taskApi);
-        kafkaTemplate.send(jsonTopic, taskRejectKafkaEvent);
-        log.debug("sendRejectTaskKafkaEvent, kafka sent rejectedTaskKafkaEvent message: {}", taskRejectKafkaEvent);
     }
 
     // Task updates for Tags, Comments, User, Subscribers

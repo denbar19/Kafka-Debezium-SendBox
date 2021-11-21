@@ -1,10 +1,13 @@
 package akvelon.zuora.denysenko.validation.user;
 
-public class UserValidator<User> extends AbstractUserValidator<User> {
+import akvelon.zuora.denysenko.entity.persistence.User;
+import akvelon.zuora.denysenko.validation.AbstractValidator;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
-    public UserValidator(Class<User> clazz) {
-        super(clazz);
-    }
+@Service
+@NoArgsConstructor
+public class UserValidator extends AbstractValidator<User> {
 
     @Override
     public User isNull(User user) {

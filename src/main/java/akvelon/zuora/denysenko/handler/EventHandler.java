@@ -11,7 +11,6 @@ import akvelon.zuora.denysenko.exception.notification.email.NotificationEmailExc
 import akvelon.zuora.denysenko.kafka.event.AbstractKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskCreatedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskDeletedKafkaEvent;
-import akvelon.zuora.denysenko.kafka.event.task.TaskRejectedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.task.TaskUpdatedKafkaEvent;
 import akvelon.zuora.denysenko.kafka.event.user.*;
 import akvelon.zuora.denysenko.validation.AbstractValidator;
@@ -39,15 +38,14 @@ import static akvelon.zuora.denysenko.entity.TaskUpdatedAction.*;
 @Component("EventHandler")
 public class EventHandler {
 
-    public final TaskApiValidator<TaskApi> taskApiValidator;
-    public final UserApiValidator<UserApi> userApiValidator;
+    public final TaskApiValidator taskApiValidator;
+    public final UserApiValidator userApiValidator;
     public final AbstractValidator<UserApi> validator;
 
     private final Map<EntityAction, Consumer<AbstractKafkaEvent>> eventsOptions = new HashMap<>() {{
         put(TASK_CREATED, (e) -> processTaskCreated((TaskCreatedKafkaEvent) e));
         put(EntityAction.TASK_UPDATED, (e) -> processTaskUpdatedEvents((TaskUpdatedKafkaEvent) e));
         put(TASK_DELETED, (e) -> processTaskDeleted((TaskDeletedKafkaEvent) e));
-        put(TASK_REJECTED, (e) -> processTaskRejected((TaskRejectedKafkaEvent) e));
         put(USER_CREATED, (e) -> processUserCreated((UserCreatedKafkaEvent) e));
         put(USER_UPDATED, (e) -> processUserUpdated((UserUpdatedKafkaEvent) e));
         put(USER_DELETED, (e) -> processUserDeleted((UserDeletedKafkaEvent) e));
@@ -151,31 +149,6 @@ public class EventHandler {
     private void processTaskDeleted(TaskDeletedKafkaEvent event) {
         log.debug("processTaskDelete, {}", event);
         TaskApi taskApi = event.getTask();
-
-        if (!Objects.isNull(taskApi.getSubscribersApi()) && taskApi.getSubscribersApi().size() != 0) {
-            try {
-
-
-            } catch (NotificationEmailException exception) {
-                log.warn(exception.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Updates statistic of user, which was assigned on the {@code task}.
-     *
-     * @param event rejected TaskApi
-     */
-    private void processTaskRejected(TaskRejectedKafkaEvent event) {
-        log.debug("processTaskReject, {}", event);
-        TaskApi taskApi = event.getTask();
-        UserApi userApi = taskApi.getUserApi();
-        if (Objects.isNull(userApi)) {
-            log.debug("processTaskReject, user is null, request: {}", event);
-            throw new UserNotFoundException("User not found, request: " + event);
-        }
-
 
         if (!Objects.isNull(taskApi.getSubscribersApi()) && taskApi.getSubscribersApi().size() != 0) {
             try {

@@ -86,7 +86,6 @@ public class Task implements AbstractTask {
     private User user;
 
     @EqualsAndHashCode.Exclude
-    @With
     @Builder.ObtainVia(method = "getTaskSubscribersNested")
     @Builder.Default
     @ToString.Exclude

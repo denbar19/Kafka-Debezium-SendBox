@@ -1,4 +1,4 @@
-package akvelon.zuora.denysenko.kafka;
+package akvelon.zuora.denysenko;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
