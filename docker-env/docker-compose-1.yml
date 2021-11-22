@@ -48,9 +48,10 @@ services:
         image: mysql
         hostname: mysql
         container_name: mysql
+        command: --default-authentication-plugin=mysql_native_password
         restart: always
         volumes:
-            - debeziumMySqlSendbox:/var/mysql/data
+            - /var/lib/docker/volumes/debeziumMySqlSendbox/_data:/var/lib/mysql
         ports:
             - "3306:3306"
         environment:
@@ -75,3 +76,4 @@ services:
             OFFSET_STORAGE_TOPIC: my_connect_offsets
             STATUS_STORAGE_TOPIC: my_connect_statuses
             HEAP_OPTS: -Xms256M -Xmx3G
+            ENABLE_APICURIO_CONVERTERS: true

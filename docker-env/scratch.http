@@ -1,0 +1,37 @@
+POST localhost:8083/connectors/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "planning_system-debezium-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "root",
+    "database.password": "debezium",
+    "database.server.id": "184055",
+    "database.server.name": "dbserver1",
+    "database.include.list": "planning_system",
+    "database.history.kafka.bootstrap.servers": "kafka:29092",
+    "database.history.kafka.topic": "dbhistory.planning_system"
+  }
+}
+
+###
+
+# curl -H "Accept:application/json" localhost:8083/connectors/
+GET localhost:8083/connectors/
+Accept: application/json
+
+###
+
+# curl -i -X GET -H "Accept:application/json" localhost:8083/connectors/inventory-connector
+GET localhost:8083/connectors/planning_system-debezium-connector
+Accept: application/json
+
+###
+
+
+
