@@ -235,8 +235,8 @@
 <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
-            <version>1.5.0</version>
+            <artifactId>flink-connector-kafka_2.12</artifactId>
+            <version>1.14.0</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.flink</groupId>-->
@@ -254,6 +254,11 @@
             <version>1.14.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-maven-plugin</artifactId>
+            <version>1.11.0</version>
+        </dependency>
 
 
 
@@ -327,6 +332,24 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>1.11.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                            <outputDirectory>${project.basedir}/src/main/java/avro</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
