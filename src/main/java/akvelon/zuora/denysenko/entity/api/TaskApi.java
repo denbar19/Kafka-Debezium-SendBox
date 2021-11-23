@@ -58,6 +58,7 @@ public class TaskApi implements AbstractTask{
     @JsonProperty("user")
     private UserApi userApi;
 
+    @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
     @JsonProperty("subscribers")
