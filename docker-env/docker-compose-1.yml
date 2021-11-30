@@ -38,7 +38,7 @@ services:
             KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
             KAFKA_JMX_PORT: 9101
             KAFKA_JMX_HOSTNAME: localhost
-            KAFKA_CONFLUENT_SCHEMA_REGISTRY_URL: http://schema-registry:8085
+            KAFKA_CONFLUENT_SCHEMA_REGISTRY_URL: http://localhost:8085
             CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:9092, kafka:29092
             CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
             CONFLUENT_METRICS_ENABLE: 'true'
@@ -56,7 +56,10 @@ services:
         environment:
             SCHEMA_REGISTRY_HOST_NAME: schema-registry
             SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
-            SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
+#            SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
+            SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8085
+            SCHEMA_REGISTRY_SCHEMA_COMPATIBILITY_LEVEL: full
+            SCHEMA_REGISTRY_DEBUG: true
 
     mysql:
         image: mysql
@@ -74,18 +77,25 @@ services:
             MYSQL_PASSWORD: mysqlpw
 
     connect:
-        image: debezium/connect
+        image: debezium/connect:1.7.1.Final
         hostname: connect
         container_name: connect
         depends_on:
             - zookeeper
             - kafka
+            - schema-registry
             - mysql
         ports:
             - "8083:8083"
         environment:
             BOOTSTRAP_SERVERS: kafka:29092
             GROUP_ID: debezium_sendbox
+            CONNECT_REST_ADVERTISED_HOST_NAME: connect
+            CONNECT_REST_PORT: 8083
+            KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+            VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+            CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8085
+            CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8085
             CONFIG_STORAGE_TOPIC: my_connect_configs
             OFFSET_STORAGE_TOPIC: my_connect_offsets
             STATUS_STORAGE_TOPIC: my_connect_statuses

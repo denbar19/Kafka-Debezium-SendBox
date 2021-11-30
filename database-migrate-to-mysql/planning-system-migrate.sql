@@ -1,5 +1,6 @@
-USE planning_system;
 CREATE DATABASE planning_system;
+USE planning_system;
+
 
 CREATE TABLE IF NOT EXISTS users (
                                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
